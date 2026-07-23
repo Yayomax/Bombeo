@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volumen — BOMBEO</title>
+<meta name="description" content="Cómo se reparten las 93 series semanales de BOMBEO entre los grupos musculares. Gráfico interactivo y tabla de frecuencia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="volumen">
+
+<nav class="navbar">
+  <div class="nav-top wrap">
+    <a class="nav-logo" href="index.html">BOMBE<span class="disc">O</span></a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodo.html">Método</a>
+      <a href="volumen.html" aria-current="page">Volumen</a>
+      <a href="rutina.html">Rutina</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-hero wrap">
+    <p class="crumb"><a href="index.html">Inicio</a> / Volumen</p>
+    <p class="eyebrow">El reparto</p>
+    <h1 class="section-title">Distribución<br>del volumen</h1>
+    <p class="section-lead">Qué porcentaje del volumen semanal total recibe cada grupo muscular. Tocá un segmento o un ítem de la leyenda para ver el detalle.</p>
+  </header>
+
+  <section class="section-tight wrap">
+    <div class="chart-layout">
+      <div class="donut-wrap">
+        <svg class="donut" viewBox="0 0 200 200" role="img" aria-label="Gráfico de dona: distribución del volumen semanal por grupo muscular">
+          <g id="donut-segments"></g>
+        </svg>
+        <div class="donut-center" id="donut-center">
+          <div class="big">100%</div>
+          <div class="cap">Del volumen semanal</div>
+        </div>
+      </div>
+      <div><div class="legend" id="legend"></div></div>
+    </div>
+
+    <div class="chart-notes reveal">
+      <ul>
+        <li>Cada grupo recibe entre 6 y 18 series semanales, la mayoría en el rango de 10 a 18 donde la evidencia muestra mejor respuesta.</li>
+        <li>Los grupos grandes (espalda, pecho, hombros) reciben más volumen porque toleran y requieren más.</li>
+        <li>Los grupos chicos (bíceps, tríceps) reciben menos volumen directo porque acumulan trabajo indirecto sustancial en todos los tirones y empujes. El total efectivo los deja en rango.</li>
+        <li>Gemelos recibe menos porque responde bien a volúmenes menores y se recupera rápido.</li>
+        <li>Ningún grupo queda por debajo del umbral de estímulo ni excede el punto donde la fatiga supera al beneficio.</li>
+      </ul>
+      <p class="method-note"><b style="color:var(--fg)">Nota metodológica:</b> el conteo incluye series directas más una estimación del trabajo indirecto — un ejercicio compuesto aporta fracción de serie a los músculos secundarios.</p>
+
+      <div class="freq-table">
+        <h3>Frecuencia semanal por grupo</h3>
+        <table class="freq" id="freq-table">
+          <thead><tr><th>Grupo</th><th>Frecuencia semanal</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="reveal" style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:clamp(28px,5vw,48px);text-align:center">
+      <p class="eyebrow" style="margin-bottom:10px">Ahora sí</p>
+      <h2 class="section-title" style="font-size:clamp(1.8rem,6vw,3rem);margin-bottom:16px">Todo esto, día por día</h2>
+      <p class="section-lead" style="margin:0 auto 28px">Así se reparte el volumen a lo largo de las 10 semanas del programa.</p>
+      <a class="btn btn-primary" href="rutina.html">Ver la rutina
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">Contenido informativo. No reemplaza el asesoramiento profesional. Consultá con un médico antes de iniciar un programa de entrenamiento.</p>
+    <div class="foot-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodo.html">Método</a>
+      <a href="volumen.html">Volumen</a>
+      <a href="rutina.html">Rutina</a>
+    </div>
+    <p class="credits">Hecho por Joaquín Molina — <a href="https://lureon.ai" target="_blank" rel="noopener">Lureon AI</a></p>
+    <div class="foot-mark">BOMBEO</div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
