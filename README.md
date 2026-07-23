@@ -1,27 +1,41 @@
 # BOMBEO
 
-Landing de una sola página para una rutina de entrenamiento **full body de 5 días**, construida sobre principios de hipertrofia (tensión mecánica, sobrecarga progresiva, volumen efectivo, frecuencia y proximidad al fallo).
+Sitio multi-página para un **programa full body de 10 semanas** pensado para los que recién empiezan, construido sobre principios de hipertrofia (tensión mecánica, sobrecarga progresiva, volumen efectivo, frecuencia y proximidad al fallo).
 
 **Cinco días. Todo el cuerpo. Cero vueltas.**
 
-## Qué incluye
+🔗 En vivo: https://yayomax.github.io/Bombeo/
 
-- Hero con wordmark, tagline y tres datos destacados (5 días/semana · 93 series semanales · ~19 por sesión).
-- Explicación de cómo funciona la hipertrofia en cinco conceptos.
-- Gráfico de dona (SVG) con la distribución del volumen semanal por grupo muscular, con detalle al hover/tap, leyenda y tabla de frecuencia.
-- La rutina completa en tabs por día (Día 1 a 5), con series, repeticiones, RIR y descanso.
-- Notas de ejecución.
+## Estructura
+
+Sitio estático multi-página con navbar compartida:
+
+| Página | Archivo | Contenido |
+|---|---|---|
+| Inicio | `index.html` | Hero, datos destacados y tarjetas de navegación |
+| Método | `metodo.html` | Los cinco principios de hipertrofia |
+| Volumen | `volumen.html` | Gráfico de dona interactivo + tabla de frecuencia |
+| Rutina | `rutina.html` | Programa de 10 semanas, día por día, con progresión |
+
+Estilos y lógica compartidos:
+
+- `styles.css` — design system completo (tokens de color/tipografía, componentes, responsive).
+- `app.js` — datos del programa + render por página (cada bloque se activa solo si su contenedor existe) + interacciones (navbar mobile, tabs, gráfico, progresión semanal, reveal on scroll).
+
+## La rutina, progresiva
+
+El programa son **9 semanas de sobrecarga progresiva + 1 de descarga**. Se calcula sobre datos base únicos: las repeticiones suben del piso al techo del rango prescripto y el RIR baja (te acercás al fallo) semana a semana, con una curva conservadora para principiantes que nunca supera el RIR de la tabla. La semana 10 es descarga: mitad de series, cargas livianas.
 
 ## Detalles técnicos
 
-- **Un solo archivo:** todo vive en `index.html` — HTML, CSS y JS embebidos, con el gráfico dibujado a mano en SVG.
 - **Sin backend, sin build, sin dependencias** (salvo Google Fonts). No se guarda progreso ni hay cuentas.
-- **Responsive mobile-first:** en pantallas chicas las tablas de la rutina se apilan como tarjetas por ejercicio (sin scroll horizontal) y la leyenda del gráfico queda debajo.
-- **Accesible:** contraste sobre fondo oscuro, navegación por teclado en los tabs, foco visible y respeto de `prefers-reduced-motion`.
+- **Responsive mobile-first**, verificado sin scroll horizontal de 320px a 1440px. En pantallas chicas las tablas de la rutina se apilan como tarjetas por ejercicio y el menú pasa a hamburguesa.
+- **Accesible:** contraste sobre fondo oscuro, navegación por teclado (tabs, foco visible), roles ARIA, `aria-current` en la navegación, y respeto de `prefers-reduced-motion`.
+- **Diseño e interacción** apoyados en las skills `ui-ux-pro-max` y `emil-design-eng` (easing Expo, feedback al presionar, reveal escalonado en scroll, íconos SVG en vez de emoji).
 
-## Cómo verla
+## Cómo verlo localmente
 
-Abrí `index.html` en el navegador (doble clic), o servila localmente:
+Al ser multi-página, servilo con un servidor estático (no abras los `.html` con `file://` para que las rutas relativas funcionen bien):
 
 ```bash
 python3 -m http.server 8000
@@ -30,7 +44,7 @@ python3 -m http.server 8000
 
 ## Deploy
 
-Al ser estática de un solo archivo, se puede publicar tal cual en GitHub Pages, Netlify, Vercel o cualquier hosting de estáticos.
+Publicado con GitHub Pages desde la branch `gh-pages` (raíz). Cualquier hosting de estáticos (Netlify, Vercel) sirve igual.
 
 ## Descargo
 

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rutina — BOMBEO</title>
+<meta name="description" content="El programa full body de 10 semanas de BOMBEO, día por día, con progresión de repeticiones y RIR semana a semana.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="rutina">
+
+<nav class="navbar">
+  <div class="nav-top wrap">
+    <a class="nav-logo" href="index.html">BOMBE<span class="disc">O</span></a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodo.html">Método</a>
+      <a href="volumen.html">Volumen</a>
+      <a href="rutina.html" aria-current="page">Rutina</a>
+    </div>
+  </div>
+  <div class="nav-weeks-row">
+    <div class="nav-weeks" id="nav-weeks"></div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-hero wrap" id="rutina">
+    <p class="crumb"><a href="index.html">Inicio</a> / Rutina</p>
+    <p class="eyebrow">El plan</p>
+    <h1 class="section-title">La rutina</h1>
+    <p class="section-lead">Un programa de 10 semanas pensado para quien recién empieza: 9 semanas de sobrecarga progresiva más una semana de descarga. Elegí la semana desde la barra de arriba y el día acá abajo.</p>
+  </header>
+
+  <section class="section-tight wrap">
+    <div class="week-head">
+      <div class="week-badge" id="week-badge">SEMANA 1</div>
+      <p class="week-sub" id="week-sub"></p>
+      <div class="week-progress" id="week-progress"></div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Días de la rutina" id="tabs"></div>
+    <div id="panels"></div>
+  </section>
+
+  <section class="section wrap">
+    <p class="eyebrow reveal">Manual de uso</p>
+    <h2 class="section-title reveal">Notas de<br>ejecución</h2>
+    <ul class="notes-list reveal" style="margin-top:32px">
+      <li>Si nunca entrenaste, las primeras semanas van a sentirse livianas — <b>es intencional</b>: estás grabando la técnica antes de buscar el límite. No te apures a cargar peso.</li>
+      <li><b>RIR</b> significa repeticiones en reserva: cuántas repeticiones podrías haber hecho más antes de fallar. RIR 2 = te quedaban dos.</li>
+      <li>Cuando llegues al <b>tope del rango de repeticiones en todas las series</b>, subí el peso en la siguiente sesión.</li>
+      <li>Los ejercicios se pueden <b>sustituir por equivalentes</b> según el equipamiento disponible, manteniendo el patrón de movimiento.</li>
+      <li>Este programa ya incluye una <b>semana de descarga</b> al final (semana 10): mismo esquema, la mitad de las series, cargas más livianas. Si seguís entrenando después, repetí ese esquema cada 6 a 8 semanas.</li>
+      <li>La progresión no es lineal indefinidamente. <b>Estancarse es normal</b> y es señal de cambiar la variante o revisar recuperación, sueño y alimentación.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="disclaimer">Contenido informativo. No reemplaza el asesoramiento profesional. Consultá con un médico antes de iniciar un programa de entrenamiento.</p>
+    <div class="foot-links">
+      <a href="index.html">Inicio</a>
+      <a href="metodo.html">Método</a>
+      <a href="volumen.html">Volumen</a>
+      <a href="rutina.html">Rutina</a>
+    </div>
+    <p class="credits">Hecho por Joaquín Molina — <a href="https://lureon.ai" target="_blank" rel="noopener">Lureon AI</a></p>
+    <div class="foot-mark">BOMBEO</div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
