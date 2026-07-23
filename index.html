@@ -27,6 +27,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+section,footer{scroll-margin-top:118px}
 body{
   margin:0;
   background-color:var(--bg);
@@ -70,6 +71,87 @@ section:first-of-type{border-top:0}
   margin:0 0 40px;
 }
 .hr-lima{height:1px;background:var(--lima-20);border:0;margin:0}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(10,18,13,.88);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:14px 20px;
+}
+.nav-logo{
+  font-family:var(--display);
+  text-transform:uppercase;
+  color:var(--lima);
+  letter-spacing:-.02em;
+  font-size:1.4rem;
+  text-decoration:none;
+  flex:none;
+}
+.nav-links{
+  display:flex;
+  gap:26px;
+  flex-wrap:wrap;
+}
+.nav-links a{
+  font-family:var(--title);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.82rem;
+  color:var(--fg2);
+  text-decoration:none;
+  padding:4px 0;
+  border-bottom:2px solid transparent;
+  transition:color .15s ease,border-color .15s ease;
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--fg)}
+.nav-links a.active{color:var(--lima);border-color:var(--lima)}
+.nav-weeks-row{
+  border-top:1px solid var(--border);
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.nav-weeks{
+  display:inline-flex;
+  gap:8px;
+  padding:10px 20px;
+  white-space:nowrap;
+}
+.week-pill{
+  flex:none;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  color:var(--fg2);
+  font-family:var(--title);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-size:.8rem;
+  padding:8px 14px;
+  min-height:38px;
+  cursor:pointer;
+  transition:all .15s ease;
+}
+.week-pill:hover{color:var(--fg);border-color:var(--salvia)}
+.week-pill:focus-visible{outline:3px solid var(--salvia);outline-offset:2px}
+.week-pill[aria-pressed="true"]{background:var(--lima);border-color:var(--lima);color:#0A120D}
+.week-pill.deload{border-color:var(--salvia)}
+.week-pill.deload[aria-pressed="true"]{background:var(--salvia);border-color:var(--salvia);color:#0A120D}
+@media (max-width:560px){
+  .nav-links{display:none}
+}
 
 /* ---------- HERO ---------- */
 .hero{
@@ -255,6 +337,28 @@ table.freq td:last-child,table.freq th:last-child{text-align:right}
 table.freq .fq{font-family:var(--display);color:var(--lima);font-size:1.15rem}
 
 /* ---------- RUTINA ---------- */
+.week-head{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:24px 26px;
+  margin-bottom:32px;
+}
+.week-badge{
+  font-family:var(--display);
+  color:var(--lima);
+  text-transform:uppercase;
+  letter-spacing:.01em;
+  font-size:clamp(1.8rem,5vw,2.4rem);
+  line-height:1;
+}
+.week-badge.deload{color:var(--salvia)}
+.week-sub{color:var(--fg2);margin:10px 0 18px;font-size:.98rem;max-width:56ch}
+.week-progress{display:flex;gap:6px}
+.week-dot{flex:1;height:5px;border-radius:3px;background:var(--elev)}
+.week-dot.filled{background:var(--lima)}
+.week-dot.deload-dot{background:var(--elev)}
+.week-dot.deload-dot.filled{background:var(--salvia)}
 .tabs{
   display:flex;
   gap:8px;
@@ -360,6 +464,22 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
 </head>
 <body>
 
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar">
+  <div class="nav-top wrap">
+    <a class="nav-logo" href="#">BOMBEO</a>
+    <div class="nav-links">
+      <a href="#metodo">Método</a>
+      <a href="#volumen">Volumen</a>
+      <a href="#rutina">Rutina</a>
+      <a href="#notas">Notas</a>
+    </div>
+  </div>
+  <div class="nav-weeks-row">
+    <div class="nav-weeks wrap" id="nav-weeks"></div>
+  </div>
+</nav>
+
 <!-- ============ HERO ============ -->
 <header class="hero wrap">
   <h1 class="wordmark">BOMBE<span class="disc">O</span></h1>
@@ -375,7 +495,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
 </header>
 
 <!-- ============ HIPERTROFIA ============ -->
-<section class="wrap reveal">
+<section class="wrap reveal" id="metodo">
   <p class="eyebrow">Cómo funciona</p>
   <h2 class="section-title">La hipertrofia,<br>sin misterio</h2>
   <p class="section-lead">Cinco ideas alcanzan para entender por qué esta rutina está armada como está. No hay más ciencia que esta.</p>
@@ -383,7 +503,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
 </section>
 
 <!-- ============ GRÁFICO ============ -->
-<section class="wrap reveal">
+<section class="wrap reveal" id="volumen">
   <p class="eyebrow">El reparto</p>
   <h2 class="section-title">Distribución<br>del volumen</h2>
   <p class="section-lead">Qué porcentaje del volumen semanal total recibe cada grupo muscular. Tocá un segmento para ver el detalle.</p>
@@ -427,14 +547,20 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
 <section class="wrap reveal" id="rutina">
   <p class="eyebrow">El plan</p>
   <h2 class="section-title">La rutina</h2>
-  <p class="section-lead">Cinco días. Elegí uno para ver los ejercicios, series, repeticiones en reserva y descansos.</p>
+  <p class="section-lead">Un bloque de 6 semanas con sobrecarga progresiva más una semana de descarga. Elegí la semana desde arriba y el día acá abajo.</p>
+
+  <div class="week-head">
+    <div class="week-badge" id="week-badge">SEMANA 1</div>
+    <p class="week-sub" id="week-sub"></p>
+    <div class="week-progress" id="week-progress"></div>
+  </div>
 
   <div class="tabs" role="tablist" aria-label="Días de la rutina" id="tabs"></div>
   <div id="panels"></div>
 </section>
 
 <!-- ============ NOTAS ============ -->
-<section class="wrap reveal">
+<section class="wrap reveal" id="notas">
   <p class="eyebrow">Manual de uso</p>
   <h2 class="section-title">Notas de<br>ejecución</h2>
   <ul class="notes-list">
@@ -613,6 +739,101 @@ frecuencia.forEach(([g,f])=>{
   ftb.appendChild(tr);
 });
 
+/* ================= PROGRESIÓN SEMANAL ================= */
+const NUM_WEEKS = 6;      // semanas de sobrecarga progresiva
+const DELOAD_WEEK = NUM_WEEKS + 1; // semana de descarga
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+
+function parseSR(sr){
+  const m = sr.match(/^(\d+)\s*×\s*(\d+)(?:-(\d+))?(\s*s)?$/);
+  const series = +m[1], repMin = +m[2], repMax = m[3]? +m[3] : repMin, unit = m[4] ? ' s' : '';
+  return {series, repMin, repMax, unit};
+}
+function parseRIR(rir){
+  if(rir === '—') return null;
+  const m = rir.match(/^(\d+)(?:-(\d+))?$/);
+  const low = +m[1], high = m[2] ? +m[2] : low;
+  return {low, high};
+}
+function fmtRIR(low,high){ return low===high ? String(low) : `${low}-${high}`; }
+
+// double progression + acercamiento al fallo: semana 1 = lejos del fallo y
+// abajo del rango de reps, semana N = arriba del rango y cerca del fallo.
+function computeWeekExercise(base, week){
+  const {series, repMin, repMax, unit} = parseSR(base.sr);
+  const rirRange = parseRIR(base.rir);
+  let seriesOut, repOut, rirOut, deload=false;
+
+  if(week <= NUM_WEEKS){
+    const t = NUM_WEEKS > 1 ? (week-1)/(NUM_WEEKS-1) : 1;
+    repOut = Math.round(repMin + (repMax-repMin)*t);
+    seriesOut = series;
+    if(rirRange){
+      const delta = Math.round(1 - 2*t); // +1 semana 1 -> -1 última semana
+      rirOut = fmtRIR(clamp(rirRange.low+delta,0,4), clamp(rirRange.high+delta,0,4));
+    } else rirOut = '—';
+  } else {
+    deload = true;
+    seriesOut = Math.max(1, Math.round(series/2));
+    repOut = repMin;
+    rirOut = rirRange ? fmtRIR(clamp(rirRange.low+2,0,4), clamp(rirRange.high+2,0,4)) : '—';
+  }
+  return {sr:`${seriesOut} × ${repOut}${unit}`, rir:rirOut, d:base.d, deload};
+}
+
+/* ================= RENDER: navbar semanas ================= */
+const state = { week:1, day:1 };
+const navWeeksEl = document.getElementById('nav-weeks');
+const weekPills = [];
+
+for(let w=1; w<=DELOAD_WEEK; w++){
+  const b = document.createElement('button');
+  b.className = 'week-pill' + (w===DELOAD_WEEK ? ' deload' : '');
+  b.type = 'button';
+  b.dataset.week = w;
+  b.setAttribute('aria-pressed', w===state.week ? 'true' : 'false');
+  b.textContent = w===DELOAD_WEEK ? 'DESCARGA' : `SEM ${w}`;
+  b.title = w===DELOAD_WEEK ? 'Semana de descarga' : `Semana ${w} de ${NUM_WEEKS}`;
+  b.addEventListener('click', ()=>{
+    setWeek(w);
+    document.getElementById('rutina').scrollIntoView({behavior: prefersReducedMotion() ? 'auto':'smooth', block:'start'});
+  });
+  navWeeksEl.appendChild(b);
+  weekPills.push(b);
+}
+
+function prefersReducedMotion(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+function updateWeekHead(){
+  const badge = document.getElementById('week-badge');
+  const sub = document.getElementById('week-sub');
+  const prog = document.getElementById('week-progress');
+  if(state.week === DELOAD_WEEK){
+    badge.textContent = 'DESCARGA';
+    badge.classList.add('deload');
+    sub.textContent = 'Mismo esquema, la mitad de las series y cargas más livianas. Recuperás para el próximo bloque de 6 semanas.';
+  } else {
+    badge.textContent = `SEMANA ${state.week}`;
+    badge.classList.remove('deload');
+    sub.textContent = state.week === 1
+      ? 'Arrancás el bloque: repeticiones en la parte baja del rango, más lejos del fallo.'
+      : `Bloque ${state.week} de ${NUM_WEEKS}: vas subiendo repeticiones y acercándote al fallo semana a semana.`;
+  }
+  prog.innerHTML = '';
+  for(let w=1; w<=DELOAD_WEEK; w++){
+    const dot = document.createElement('div');
+    dot.className = 'week-dot' + (w===DELOAD_WEEK ? ' deload-dot':'') + (w<=state.week ? ' filled':'');
+    prog.appendChild(dot);
+  }
+}
+
+function setWeek(w){
+  state.week = w;
+  weekPills.forEach(p=> p.setAttribute('aria-pressed', +p.dataset.week===w ? 'true':'false'));
+  updateWeekHead();
+  renderPanels();
+}
+
 /* ================= RENDER: rutina (tabs + paneles) ================= */
 const tabsEl = document.getElementById('tabs');
 const panelsEl = document.getElementById('panels');
@@ -634,34 +855,41 @@ dias.forEach((dia,idx)=>{
   panel.setAttribute('role','tabpanel');
   panel.setAttribute('aria-labelledby',`tab-${dia.n}`);
   if(idx!==0) panel.hidden = true;
-
-  // tabla desktop
-  let rows = dia.ejercicios.map(x=>`
-    <tr>
-      <td class="name">${x.e}</td>
-      <td class="sr">${x.sr}</td>
-      <td class="num-col">${x.rir}</td>
-      <td class="num-col">${x.d}</td>
-    </tr>`).join('');
-  // tarjetas mobile
-  let cards = dia.ejercicios.map(x=>`
-    <div class="ex-card">
-      <div class="name">${x.e}</div>
-      <div class="row">
-        <div class="cell"><span class="k">Series × Reps</span><span class="v">${x.sr}</span></div>
-        <div class="cell"><span class="k">RIR</span><span class="v">${x.rir}</span></div>
-        <div class="cell"><span class="k">Descanso</span><span class="v small">${x.d}</span></div>
-      </div>
-    </div>`).join('');
-
-  panel.innerHTML = `
-    <table class="ex-table">
-      <thead><tr><th>Ejercicio</th><th>Series × Reps</th><th>RIR</th><th>Descanso</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-    <div class="ex-cards">${cards}</div>`;
   panelsEl.appendChild(panel);
 });
+
+function renderPanels(){
+  dias.forEach(dia=>{
+    const panel = document.getElementById(`panel-${dia.n}`);
+    const computed = dia.ejercicios.map(x=>({e:x.e, ...computeWeekExercise(x, state.week)}));
+
+    let rows = computed.map(x=>`
+      <tr>
+        <td class="name">${x.e}</td>
+        <td class="sr">${x.sr}</td>
+        <td class="num-col">${x.rir}</td>
+        <td class="num-col">${x.d}</td>
+      </tr>`).join('');
+    let cards = computed.map(x=>`
+      <div class="ex-card">
+        <div class="name">${x.e}</div>
+        <div class="row">
+          <div class="cell"><span class="k">Series × Reps</span><span class="v">${x.sr}</span></div>
+          <div class="cell"><span class="k">RIR</span><span class="v">${x.rir}</span></div>
+          <div class="cell"><span class="k">Descanso</span><span class="v small">${x.d}</span></div>
+        </div>
+      </div>`).join('');
+
+    panel.innerHTML = `
+      <table class="ex-table">
+        <thead><tr><th>Ejercicio</th><th>Series × Reps</th><th>RIR</th><th>Descanso</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="ex-cards">${cards}</div>`;
+  });
+}
+renderPanels();
+updateWeekHead();
 
 const tabButtons = Array.from(tabsEl.querySelectorAll('.tab'));
 function selectTab(i){
@@ -683,6 +911,19 @@ tabButtons.forEach((t,i)=>{
     if(ni!==null){e.preventDefault();selectTab(ni);tabButtons[ni].focus();}
   });
 });
+
+/* ================= navbar: highlight de sección activa ================= */
+const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+const navSections = ['metodo','volumen','rutina','notas'].map(id=>document.getElementById(id)).filter(Boolean);
+const navIO = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      const id = en.target.id;
+      navLinks.forEach(a=> a.classList.toggle('active', a.getAttribute('href')===`#${id}`));
+    }
+  });
+},{rootMargin:'-45% 0px -50% 0px'});
+navSections.forEach(s=>navIO.observe(s));
 
 /* ================= reveal + animación donut al scroll ================= */
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
