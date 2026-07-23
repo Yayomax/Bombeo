@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BOMBEO — Rutina Full Body 5 Días</title>
-<meta name="description" content="Rutina full body de 5 días construida sobre principios de hipertrofia. Gratis, sin registro.">
+<title>BOMBEO — Programa Full Body 10 Semanas</title>
+<meta name="description" content="Programa full body de 10 semanas para los que recién empiezan, construido sobre principios de hipertrofia. Gratis, sin registro.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -61,7 +61,9 @@ section:first-of-type{border-top:0}
   text-transform:uppercase;
   letter-spacing:.01em;
   line-height:.92;
-  font-size:clamp(2.4rem,7vw,4.6rem);
+  font-size:clamp(2rem,8vw,4.6rem);
+  overflow-wrap:break-word;
+  word-break:break-word;
   margin:0 0 8px;
 }
 .section-lead{
@@ -113,11 +115,13 @@ section:first-of-type{border-top:0}
   text-decoration:none;
   padding:4px 0;
   border-bottom:2px solid transparent;
+  touch-action:manipulation;
   transition:color .15s ease,border-color .15s ease;
 }
 .nav-links a:hover,.nav-links a:focus-visible{color:var(--fg)}
 .nav-links a.active{color:var(--lima);border-color:var(--lima)}
 .nav-weeks-row{
+  max-width:100%;
   border-top:1px solid var(--border);
   overflow-x:auto;
   scrollbar-width:thin;
@@ -142,10 +146,12 @@ section:first-of-type{border-top:0}
   padding:8px 14px;
   min-height:38px;
   cursor:pointer;
-  transition:all .15s ease;
+  touch-action:manipulation;
+  transition:color .15s ease,border-color .15s ease,background .15s ease,transform .1s ease;
 }
 .week-pill:hover{color:var(--fg);border-color:var(--salvia)}
 .week-pill:focus-visible{outline:3px solid var(--salvia);outline-offset:2px}
+.week-pill:active{transform:scale(.96)}
 .week-pill[aria-pressed="true"]{background:var(--lima);border-color:var(--lima);color:#0A120D}
 .week-pill.deload{border-color:var(--salvia)}
 .week-pill.deload[aria-pressed="true"]{background:var(--salvia);border-color:var(--salvia);color:#0A120D}
@@ -165,9 +171,11 @@ section:first-of-type{border-top:0}
   color:var(--lima);
   letter-spacing:-.04em;
   line-height:.86;
-  font-size:clamp(4.2rem,20vw,12rem);
+  font-size:clamp(3.6rem,20vw,12rem);
   display:inline-flex;
   align-items:baseline;
+  max-width:100%;
+  overflow-wrap:break-word;
 }
 .wordmark .disc{
   position:relative;
@@ -203,8 +211,8 @@ section:first-of-type{border-top:0}
   margin:0 auto 40px;
 }
 .stat{
-  flex:1 1 200px;
-  max-width:280px;
+  flex:1 1 150px;
+  max-width:220px;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
@@ -240,7 +248,9 @@ section:first-of-type{border-top:0}
   border:1px solid var(--lima);
   transition:transform .15s ease,background .15s ease;
 }
+.cta{touch-action:manipulation}
 .cta:hover{transform:translateY(-2px);background:#c8ff5e}
+.cta:active{transform:scale(.97)}
 .cta:focus-visible{outline:3px solid var(--salvia);outline-offset:3px}
 .hero-note{color:var(--fg2);font-size:.86rem;margin-top:18px}
 
@@ -379,8 +389,9 @@ table.freq .fq{font-family:var(--display);color:var(--lima);font-size:1.15rem}
   letter-spacing:.06em;
   font-size:.95rem;
   cursor:pointer;
+  touch-action:manipulation;
   padding:8px 14px;
-  transition:all .18s ease;
+  transition:color .15s ease,border-color .15s ease,background .15s ease,transform .1s ease;
   display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;
 }
 .tab .big{font-family:var(--display);font-size:1.5rem;color:inherit}
@@ -390,10 +401,13 @@ table.freq .fq{font-family:var(--display);color:var(--lima);font-size:1.15rem}
   color:#0A120D;
 }
 .tab:focus-visible{outline:3px solid var(--salvia);outline-offset:2px}
+.tab:active{transform:scale(.97)}
 
 .day-panel{animation:fade .35s ease}
 .day-panel[hidden]{display:none}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#panels{transition:opacity .15s ease,filter .15s ease}
+#panels.swapping{opacity:.35;filter:blur(2px)}
 
 /* tabla desktop */
 .ex-table{width:100%;border-collapse:collapse}
@@ -476,7 +490,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
     </div>
   </div>
   <div class="nav-weeks-row">
-    <div class="nav-weeks wrap" id="nav-weeks"></div>
+    <div class="nav-weeks" id="nav-weeks"></div>
   </div>
 </nav>
 
@@ -484,8 +498,9 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
 <header class="hero wrap">
   <h1 class="wordmark">BOMBE<span class="disc">O</span></h1>
   <p class="tagline">Cinco días. Todo el cuerpo. Cero vueltas.</p>
-  <p class="hero-sub">Una rutina full body de 5 días construida sobre principios de hipertrofia.</p>
+  <p class="hero-sub">Un programa full body de 10 semanas para los que recién empiezan, construido sobre principios de hipertrofia.</p>
   <div class="stats">
+    <div class="stat"><div class="num">10</div><div class="lbl">Semanas de programa</div></div>
     <div class="stat"><div class="num">5</div><div class="lbl">Días por semana</div></div>
     <div class="stat"><div class="num">93</div><div class="lbl">Series semanales</div></div>
     <div class="stat"><div class="num">~19</div><div class="lbl">Series por sesión</div></div>
@@ -547,7 +562,7 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
 <section class="wrap reveal" id="rutina">
   <p class="eyebrow">El plan</p>
   <h2 class="section-title">La rutina</h2>
-  <p class="section-lead">Un bloque de 6 semanas con sobrecarga progresiva más una semana de descarga. Elegí la semana desde arriba y el día acá abajo.</p>
+  <p class="section-lead">Un programa de 10 semanas pensado para quien recién empieza: 9 semanas de sobrecarga progresiva más una semana de descarga. Elegí la semana desde la navbar y el día acá abajo.</p>
 
   <div class="week-head">
     <div class="week-badge" id="week-badge">SEMANA 1</div>
@@ -564,10 +579,11 @@ footer{border-top:1px solid var(--border);padding:64px 0 72px;text-align:center}
   <p class="eyebrow">Manual de uso</p>
   <h2 class="section-title">Notas de<br>ejecución</h2>
   <ul class="notes-list">
+    <li>Si nunca entrenaste, las primeras semanas van a sentirse livianas — <b>es intencional</b>: estás grabando la técnica antes de buscar el límite. No te apures a cargar peso.</li>
     <li><b>RIR</b> significa repeticiones en reserva: cuántas repeticiones podrías haber hecho más antes de fallar. RIR 2 = te quedaban dos.</li>
     <li>Cuando llegues al <b>tope del rango de repeticiones en todas las series</b>, subí el peso en la siguiente sesión.</li>
     <li>Los ejercicios se pueden <b>sustituir por equivalentes</b> según el equipamiento disponible, manteniendo el patrón de movimiento.</li>
-    <li>Cada 6 a 8 semanas conviene una <b>semana de descarga</b>: mismo esquema, la mitad de las series, cargas más livianas.</li>
+    <li>Este programa ya incluye una <b>semana de descarga</b> al final (semana 10): mismo esquema, la mitad de las series, cargas más livianas. Si seguís entrenando después, repetí ese esquema cada 6 a 8 semanas.</li>
     <li>La progresión no es lineal indefinidamente. <b>Estancarse es normal</b> y es señal de cambiar la variante o revisar recuperación, sueño y alimentación.</li>
   </ul>
 </section>
@@ -740,8 +756,8 @@ frecuencia.forEach(([g,f])=>{
 });
 
 /* ================= PROGRESIÓN SEMANAL ================= */
-const NUM_WEEKS = 6;      // semanas de sobrecarga progresiva
-const DELOAD_WEEK = NUM_WEEKS + 1; // semana de descarga
+const NUM_WEEKS = 9;      // semanas de sobrecarga progresiva
+const DELOAD_WEEK = NUM_WEEKS + 1; // semana de descarga (10 en total)
 const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
 
 function parseSR(sr){
@@ -757,8 +773,10 @@ function parseRIR(rir){
 }
 function fmtRIR(low,high){ return low===high ? String(low) : `${low}-${high}`; }
 
-// double progression + acercamiento al fallo: semana 1 = lejos del fallo y
-// abajo del rango de reps, semana N = arriba del rango y cerca del fallo.
+// double progression + acercamiento al fallo, con curva conservadora para
+// principiantes: semana 1 arranca bien lejos del fallo (RIR alto) y abajo
+// del rango de reps para grabar la técnica; semana N llega recién al RIR
+// prescripto en la tabla (nunca más ajustado que eso) con el rango completo.
 function computeWeekExercise(base, week){
   const {series, repMin, repMax, unit} = parseSR(base.sr);
   const rirRange = parseRIR(base.rir);
@@ -769,7 +787,7 @@ function computeWeekExercise(base, week){
     repOut = Math.round(repMin + (repMax-repMin)*t);
     seriesOut = series;
     if(rirRange){
-      const delta = Math.round(1 - 2*t); // +1 semana 1 -> -1 última semana
+      const delta = Math.round(2 - 2*t); // +2 semana 1 -> 0 última semana
       rirOut = fmtRIR(clamp(rirRange.low+delta,0,4), clamp(rirRange.high+delta,0,4));
     } else rirOut = '—';
   } else {
@@ -811,13 +829,13 @@ function updateWeekHead(){
   if(state.week === DELOAD_WEEK){
     badge.textContent = 'DESCARGA';
     badge.classList.add('deload');
-    sub.textContent = 'Mismo esquema, la mitad de las series y cargas más livianas. Recuperás para el próximo bloque de 6 semanas.';
+    sub.textContent = 'Cerrás el programa con la mitad de las series y cargas más livianas. Llegás recuperado, no exprimido.';
   } else {
     badge.textContent = `SEMANA ${state.week}`;
     badge.classList.remove('deload');
     sub.textContent = state.week === 1
-      ? 'Arrancás el bloque: repeticiones en la parte baja del rango, más lejos del fallo.'
-      : `Bloque ${state.week} de ${NUM_WEEKS}: vas subiendo repeticiones y acercándote al fallo semana a semana.`;
+      ? 'Arrancás el programa: técnica primero, lejos del fallo y en la parte baja del rango de reps.'
+      : `Semana ${state.week} de ${NUM_WEEKS}: sumás reps y te acercás un poco más al fallo, sin pasar nunca el RIR de la tabla.`;
   }
   prog.innerHTML = '';
   for(let w=1; w<=DELOAD_WEEK; w++){
@@ -828,10 +846,19 @@ function updateWeekHead(){
 }
 
 function setWeek(w){
+  if(w === state.week) return;
   state.week = w;
   weekPills.forEach(p=> p.setAttribute('aria-pressed', +p.dataset.week===w ? 'true':'false'));
   updateWeekHead();
-  renderPanels();
+  if(prefersReducedMotion()){
+    renderPanels();
+    return;
+  }
+  panelsEl.classList.add('swapping');
+  setTimeout(()=>{
+    renderPanels();
+    panelsEl.classList.remove('swapping');
+  }, 150);
 }
 
 /* ================= RENDER: rutina (tabs + paneles) ================= */
