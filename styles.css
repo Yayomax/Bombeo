@@ -48,9 +48,15 @@ h1,h2,h3{margin:0;line-height:1}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 main{display:block}
-.section{padding:clamp(56px,9vw,96px) 0;border-top:1px solid var(--border)}
+/* OJO: usar padding-block (no el shorthand) — estas clases conviven con .wrap
+   en el mismo elemento y el shorthand le anularía el padding lateral */
+.section{padding-block:clamp(56px,9vw,96px);border-top:1px solid var(--border)}
 .section:first-child{border-top:0}
-.section-tight{padding:clamp(40px,6vw,64px) 0}
+.section-tight{padding-block:clamp(28px,4vw,44px) clamp(56px,8vw,88px)}
+
+/* la navbar sticky no debe tapar el destino de un salto */
+[id]{scroll-margin-top:96px}
+body[data-page="rutina"] [id]{scroll-margin-top:150px}
 
 .eyebrow{
   font-family:var(--title);font-weight:600;text-transform:uppercase;
@@ -93,7 +99,8 @@ main{display:block}
 .nav-logo{
   font-family:var(--display);text-transform:uppercase;color:var(--lima);
   letter-spacing:-.02em;font-size:1.5rem;text-decoration:none;flex:none;
-  display:inline-flex;align-items:baseline;
+  display:inline-flex;align-items:center;min-height:44px;
+  touch-action:manipulation;
 }
 .nav-logo .disc{position:relative}
 .nav-logo .disc::after{content:"";position:absolute;inset:16% 8%;border:.11em solid var(--bg);border-radius:50%}
@@ -101,7 +108,7 @@ main{display:block}
 .nav-links a{
   font-family:var(--title);font-weight:600;text-transform:uppercase;
   letter-spacing:.06em;font-size:.84rem;color:var(--fg2);text-decoration:none;
-  padding:8px 14px;border-radius:var(--radius);min-height:40px;
+  padding:10px 14px;border-radius:var(--radius);min-height:44px;
   display:inline-flex;align-items:center;touch-action:manipulation;
   transition:color .15s ease,background .15s ease;
 }
@@ -119,13 +126,18 @@ main{display:block}
 .nav-toggle:focus-visible{outline:3px solid var(--salvia);outline-offset:2px}
 
 /* fila de semanas (solo página rutina) */
-.nav-weeks-row{max-width:100%;border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:thin}
-.nav-weeks{display:inline-flex;gap:8px;padding:10px 20px;white-space:nowrap}
+.nav-weeks-row{max-width:100%;border-top:1px solid var(--border);overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+/* el padding lateral replica el offset del contenedor .wrap para que los
+   pills arranquen alineados con el contenido en pantallas anchas */
+.nav-weeks{
+  display:inline-flex;gap:8px;white-space:nowrap;
+  padding:10px max(20px, calc((100% - var(--maxw)) / 2 + 20px));
+}
 .week-pill{
   flex:none;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
   color:var(--fg2);font-family:var(--title);font-weight:700;text-transform:uppercase;
-  letter-spacing:.05em;font-size:.8rem;padding:8px 14px;min-height:38px;cursor:pointer;
-  touch-action:manipulation;
+  letter-spacing:.05em;font-size:.82rem;padding:10px 16px;min-height:44px;cursor:pointer;
+  display:inline-flex;align-items:center;touch-action:manipulation;
   transition:color .15s ease,border-color .15s ease,background .15s ease,transform .1s var(--ease-out);
 }
 .week-pill:hover{color:var(--fg);border-color:var(--salvia)}
@@ -151,7 +163,7 @@ main{display:block}
 /* ============================================================
    HERO (Inicio)
    ============================================================ */
-.hero{padding:clamp(56px,10vh,120px) 0 clamp(56px,8vh,88px);text-align:center;border-top:0}
+.hero{padding-block:clamp(56px,10vh,120px) clamp(56px,8vh,88px);text-align:center;border-top:0}
 .wordmark{
   font-family:var(--display);text-transform:uppercase;color:var(--lima);
   letter-spacing:-.04em;line-height:.86;font-size:clamp(3.6rem,20vw,12rem);
@@ -193,11 +205,26 @@ main{display:block}
 /* ============================================================
    PAGE HERO (interior)
    ============================================================ */
-.page-hero{padding:clamp(48px,7vw,80px) 0 clamp(24px,4vw,40px)}
-.page-hero .section-title{font-size:clamp(2.4rem,9vw,5rem)}
-.crumb{font-family:var(--title);text-transform:uppercase;letter-spacing:.1em;font-size:.76rem;color:var(--fg2);margin-bottom:14px}
-.crumb a{color:var(--fg2);text-decoration:none}
-.crumb a:hover{color:var(--lima)}
+.page-hero{
+  padding-block:clamp(32px,5vw,56px) clamp(20px,3vw,32px);
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(20px,4vw,56px);align-items:end;
+}
+.page-hero .section-title{font-size:clamp(2.2rem,8vw,4.6rem)}
+.page-hero .section-lead{margin-bottom:0}
+@media (max-width:900px){
+  .page-hero{grid-template-columns:1fr;gap:16px;align-items:start}
+}
+.crumb{
+  font-family:var(--title);text-transform:uppercase;letter-spacing:.1em;
+  font-size:.76rem;color:var(--fg2);margin:-12px 0 8px;
+}
+/* tap area de 44px sin engordar visualmente la miga de pan */
+.crumb a{
+  color:var(--fg2);text-decoration:none;display:inline-flex;align-items:center;
+  min-height:44px;padding:0 6px 0 0;touch-action:manipulation;
+}
+.crumb a:hover,.crumb a:focus-visible{color:var(--lima)}
 
 /* ============================================================
    CONCEPTOS (Método)
@@ -303,10 +330,16 @@ table.freq .fq{font-family:var(--display);color:var(--lima);font-size:1.15rem}
    ============================================================ */
 .site-footer{border-top:1px solid var(--border);padding:56px 0 64px;text-align:center;margin-top:24px}
 .site-footer .disclaimer{color:var(--fg2);font-size:.86rem;max-width:60ch;margin:0 auto 24px}
-.site-footer .foot-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
-.site-footer .foot-links a{font-family:var(--title);text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;color:var(--fg2);text-decoration:none}
-.site-footer .foot-links a:hover{color:var(--lima)}
+.site-footer .foot-links{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.site-footer .foot-links a{
+  font-family:var(--title);text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;
+  color:var(--fg2);text-decoration:none;padding:12px 16px;min-height:44px;
+  display:inline-flex;align-items:center;border-radius:var(--radius);
+  touch-action:manipulation;transition:color .15s ease,background .15s ease;
+}
+.site-footer .foot-links a:hover,.site-footer .foot-links a:focus-visible{color:var(--lima);background:var(--card)}
 .site-footer .credits{color:var(--fg2);font-size:.92rem;margin-bottom:24px}
+.site-footer .credits a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px;touch-action:manipulation}
 .site-footer .foot-mark{font-family:var(--display);text-transform:uppercase;color:var(--lima);letter-spacing:-.03em;font-size:2rem}
 
 /* ---------- reveal + stagger ---------- */

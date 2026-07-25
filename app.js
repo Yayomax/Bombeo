@@ -247,7 +247,18 @@ function renderRutina(){
     b.setAttribute('aria-pressed', w===1 ? 'true':'false');
     b.textContent = w===DELOAD_WEEK ? 'DESCARGA' : `SEM ${w}`;
     b.title = w===DELOAD_WEEK ? 'Semana de descarga' : `Semana ${w} de ${NUM_WEEKS}`;
-    b.addEventListener('click', ()=>{ setWeek(w); $('#rutina').scrollIntoView({behavior:prefersReduced()?'auto':'smooth',block:'start'}); });
+    b.addEventListener('click', ()=>{
+      const changed = setWeek(w);
+      // solo reposicionamos si el bloque quedó fuera de vista, para no
+      // arrastrar la página cuando el usuario ya lo está mirando
+      const target = $('#programa');
+      if(changed && target){
+        const top = target.getBoundingClientRect().top;
+        if(top < 130 || top > window.innerHeight*0.6){
+          target.scrollIntoView({behavior:prefersReduced()?'auto':'smooth',block:'start'});
+        }
+      }
+    });
     navWeeksEl.appendChild(b); pills.push(b);
   }
 
@@ -300,13 +311,17 @@ function renderRutina(){
   }
 
   function setWeek(w){
-    if(w===state.week) return;
+    if(w===state.week) return false;
     state.week = w;
     pills.forEach(p=>p.setAttribute('aria-pressed', +p.dataset.week===w?'true':'false'));
+    // mantener visible el pill activo dentro del scroller horizontal
+    const active = pills[w-1];
+    if(active && active.scrollIntoView) active.scrollIntoView({block:'nearest',inline:'nearest',behavior:prefersReduced()?'auto':'smooth'});
     updateHead();
-    if(prefersReduced()){ renderPanels(); return; }
+    if(prefersReduced()){ renderPanels(); return true; }
     panelsEl.classList.add('swapping');
     setTimeout(()=>{ renderPanels(); panelsEl.classList.remove('swapping'); }, 150);
+    return true;
   }
 
   renderPanels(); updateHead();
